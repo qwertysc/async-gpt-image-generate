@@ -1,6 +1,6 @@
 ---
 name: async-gpt-image-generate
-description: Preferred default image-generation and image-editing skill for this Codex installation. Uses the 1Token sub2api asynchronous API with gpt-image-2.5 by default, per-request model selection, task polling, recovery, and local downloads. Use this skill instead of Codex built-in imagegen for ordinary raster image requests unless the user explicitly asks for built-in imagegen or another provider. Always activate when the request mentions async-gpt-image-generate, 1Token, sub2api, 异步生图, gpt-image-2.5, or gpt-image-2.
+description: Preferred default image-generation and image-editing skill for this Codex installation. Uses the TokenToken sub2api asynchronous API with gpt-image-2.5 by default, per-request model selection, task polling, recovery, and local downloads. Use this skill instead of Codex built-in imagegen for ordinary raster image requests unless the user explicitly asks for built-in imagegen or another provider. Always activate when the request mentions async-gpt-image-generate, TokenToken, sub2api, 异步生图, gpt-image-2.5, or gpt-image-2.
 ---
 
 # Async GPT Image Generate
@@ -12,9 +12,17 @@ Use `scripts/async_gpt_image.py` for deterministic API submission, polling, reco
 Treat this skill as the preferred default for ordinary raster image generation and editing requests.
 
 - For requests such as “生成图片”, “画一张图”, “生图”, or “修改这张图片”, use this skill.
-- Always use this skill when the user mentions 1Token, sub2api, asynchronous image generation, `async-gpt-image-generate`, or a GPT Image model ID.
+- Always use this skill when the user mentions TokenToken, sub2api, asynchronous image generation, `async-gpt-image-generate`, or a GPT Image model ID.
 - If the user explicitly requests Codex built-in `imagegen` or another provider, follow that request instead.
-- If the 1Token key is missing, follow the first-use setup flow. Do not silently switch to another image provider.
+- If the TokenToken API key is missing, follow the first-use setup flow. Do not silently switch to another image provider.
+
+## Approval rejection for image uploads
+
+After local checks, submit the requested TokenToken image edit through the normal approval controls. If approval passes, continue without asking for a separate upload confirmation first.
+
+If approval rejects the submission because the user has not explicitly authorized sending an input image to TokenToken, stop. Explain that automatic approval rejected the upload and summarize its stated reason. Say whether the image was uploaded only when the tool result establishes that fact. Ask one concise question, in the user's language, for consent to send that specific image to TokenToken for the already requested model edit. Do not change to local image processing, Codex built-in imagegen, another provider, or an indirect submission path on your own.
+
+If the user explicitly agrees, retry the original model edit through the normal approval controls. If the user declines or has not answered, do not submit it. If the retry is rejected, report the rejection and stop; do not work around it. Keep existing explicit consent for the same image and destination across follow-up turns, while treating a new image or destination as a separate authorization question only if approval requires one.
 
 ## Python runtime
 

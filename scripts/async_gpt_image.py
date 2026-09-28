@@ -904,7 +904,7 @@ def add_image_parameters(parser: argparse.ArgumentParser) -> None:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="async_gpt_image.py",
-        description="1Token sub2api 异步 GPT 图片生成和编辑工具",
+        description="TokenToken sub2api 异步 GPT 图片生成和编辑工具",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
