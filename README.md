@@ -2,6 +2,7 @@
 
 通过 TokenToken 的 sub2api 异步接口生成或编辑图片，支持 Codex、DeepSeek Harness（dsh）和 Claude Code。任务记录与图片保存在当前会话的工作目录，Home 下只保存配置。
 
+- 项目仓库与最新版本：[qwertysc/async-gpt-image-generate](https://github.com/qwertysc/async-gpt-image-generate)
 - 默认 Base URL：`https://edge.1token-store.com`
 - 默认模型：`gpt-image-2.6`
 - Python 3.9+，仅使用标准库，无需 pip 依赖
@@ -80,6 +81,12 @@ Agent 会从当前会话上下文取得工作目录，并明确传入运行目�
 `--model` 仍接受列表之外、服务商支持的模型 ID。发生错误时会返回原始原因；脚本不会自动换模型重新提交付费请求。已有任务的轮询、下载或落盘失败应通过 `wait` 恢复，避免重复提交。
 
 ## 安装与运行环境
+
+需要更新技能时，可以把下面这句话发给当前 Agent：
+
+> 请从 [qwertysc/async-gpt-image-generate 仓库](https://github.com/qwertysc/async-gpt-image-generate) 获取最新版本，更新我当前已安装的 async-gpt-image-generate 技能，保留现有 API Key、接口地址、模型设置以及任务和图片文件。
+
+Agent 会获取最新技能文件并在原安装目录更新。更新后刷新宿主的技能列表；未显示新版本时再重启。已配置过的密钥无需重新提供。
 
 安装说明和宿主差异见 [references/agent-hosts.md](references/agent-hosts.md)。普通用户无需阅读下面的命令；由 Agent 执行即可。
 
